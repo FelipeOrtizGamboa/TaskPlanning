@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8fc" />
+    <title>TaskFlow | Mis tareas</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="#inicio"><span class="brand-mark">✓</span><span>taskflow</span></a>
+            <p class="nav-label">MENÚ</p>
+            <nav aria-label="Navegación principal">
+                <a class="nav-link active" href="#inicio"><span>▦</span> Mis tareas</a>
+                <a class="nav-link" href="#calendario"><span>▣</span> Calendario</a>
+                <a class="nav-link" href="#historial"><span>↺</span> Historial</a>
+            </nav>
+            <div class="sidebar-note"><span class="note-icon">✦</span><strong>Un paso a la vez</strong>
+                <p>Organiza tus pendientes y celebra cada avance.</p>
+            </div>
+            <div class="profile">
+                <div class="avatar">T</div>
+                <div><strong>Mi espacio</strong><small>Plan personal</small></div>
+            </div>
+        </aside>
+
+        <main id="inicio" class="main-content">
+            <header class="topbar"><span class="breadcrumb">Workspace <span>/</span> Mis tareas</span>
+                <div class="today-chip"><span>◷</span> <span id="today-label"></span></div>
+            </header>
+            <section class="welcome">
+                <div>
+                    <p class="eyebrow">TU ESPACIO DE PLANIFICACIÓN</p>
+                    <h1>Hola, ¿qué tienes en mente? <span>✦</span></h1>
+                    <p class="subtitle">Organiza tu día y avanza a tu propio ritmo.</p>
+                </div>
+                <div class="welcome-illustration" aria-hidden="true">✎</div>
+            </section>
+
+            <section class="stats" aria-label="Resumen de tareas">
+                <article class="stat-card"><span class="stat-icon purple">▤</span>
+                    <div>
+                        <p>Total de tareas</p><strong id="total-count">0</strong>
+                    </div>
+                </article>
+                <article class="stat-card"><span class="stat-icon green">✓</span>
+                    <div>
+                        <p>Completadas</p><strong id="done-count">0</strong>
+                    </div>
+                </article>
+                <article class="stat-card"><span class="stat-icon orange">◷</span>
+                    <div>
+                        <p>Próximas a vencer</p><strong id="due-count">0</strong>
+                    </div>
+                </article>
+            </section>
+
+            <section class="content-grid">
+                <div class="panel tasks-panel">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">TU LISTA</p>
+                            <h2>Tareas</h2>
+                        </div><button id="new-task-button" class="primary-button" type="button"><span>＋</span> Nueva
+                            tarea</button>
+                    </div>
+                    <div class="filters" role="group" aria-label="Filtrar tareas"><button class="filter active"
+                            data-filter="all">Todas</button><button class="filter"
+                            data-filter="pending">Pendientes</button><button class="filter"
+                            data-filter="done">Realizadas</button></div>
+                    <div id="task-list" class="task-list" aria-live="polite"></div>
+                </div>
+                <aside class="panel calendar-panel" id="calendario">
+                    <div class="section-heading compact">
+                        <div>
+                            <p class="eyebrow">PLANIFICA</p>
+                            <h2>Calendario</h2>
+                        </div>
+                        <div class="calendar-controls"><button id="prev-month"
+                                aria-label="Mes anterior">‹</button><button id="next-month"
+                                aria-label="Mes siguiente">›</button></div>
+                    </div>
+                    <div id="calendar-title" class="calendar-title"></div>
+                    <div class="calendar-grid" id="calendar-grid"></div>
+                    <div class="due-box" id="historial">
+                        <div class="due-title"><span>🔔</span><strong>Próximos vencimientos</strong></div>
+                        <div id="due-list" class="due-list"></div>
+                    </div>
+                </aside>
+            </section>
+        </main>
+    </div>
+
+    <dialog id="task-dialog" class="task-dialog">
+        <form id="task-form" method="dialog">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">NUEVO PENDIENTE</p>
+                    <h2>Agregar tarea</h2>
+                </div><button type="button" id="close-dialog" class="close-button" aria-label="Cerrar">×</button>
+            </div>
+            <label for="task-title">Título</label><input id="task-title" name="title" maxlength="80"
+                placeholder="Ej. Preparar presentación" required />
+            <label for="task-description">Descripción <span>(opcional)</span></label><textarea id="task-description"
+                name="description" rows="3" placeholder="Agrega algunos detalles..."></textarea>
+            <div class="form-row">
+                <div><label for="task-date">Fecha límite</label><input id="task-date" name="date" type="date"
+                        required /></div>
+                <div><label for="task-priority">Prioridad</label><select id="task-priority" name="priority">
+                        <option value="Media">Media</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Baja">Baja</option>
+                    </select></div>
+            </div>
+            <div class="dialog-actions"><button type="button" id="cancel-dialog"
+                    class="secondary-button">Cancelar</button><button type="submit" class="primary-button">Guardar
+                    tarea</button></div>
+        </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+
+</html>
