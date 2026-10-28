@@ -43,3 +43,5 @@ HTML, CSS y JavaScript, sin librerías externas. La fuente visual se carga desde
 ---
 
 **Un paso a la vez. Cada tarea cuenta.** ✦
+
+Link de figma: https://www.figma.com/design/3b0hi5I2xXEDodH2LTwtvL/Taskdesk?node-id=0-1&t=4FPY6IxHSOuS7OKI-1
