@@ -1,0 +1,75 @@
+/* ===== Diseño tipo dispositivo azul con pantallas verdes ===== */
+body {
+  background-color: #0a1f44;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Carcasa azul */
+.dispositivo {
+  background: linear-gradient(145deg, #2166c9, #0f3f8a);
+  border: 6px solid #0b2f6b;
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Pantallas verdes (LCD) */
+.pantalla {
+  background: radial-gradient(circle at 20% 15%, #cdeaa8, #8fbf70);
+  border: 4px solid #0b2f6b;
+  border-radius: 18px;
+  padding: 16px;
+  color: #102510;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+.pantalla h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Reloj (marco gris + pantalla) */
+.reloj {
+  border: 8px solid #a8a8a8;
+  border-radius: 22px;
+  text-align: center;
+  font-family: "Orbitron", "Courier New", monospace;
+}
+
+.reloj-hora {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Zona con scroll para las tarjetas */
+.zona-tarjetas {
+  max-height: 460px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Tarjeta de tarea con estilo LCD */
+.tarjeta-lcd {
+  background-color: rgba(255, 255, 255, 0.35);
+  border: 2px solid #2f5d2f;
+  border-radius: 12px;
+  color: #102510;
+}
+
+.tarjeta-lcd .card-footer {
+  background-color: transparent;
+  border-top: 1px solid #2f5d2f;
+  color: #102510;
+}
+
+/* Botones grises como en el borrador */
+.btn-lcd {
+  background-color: #e4e4e4;
+  border: 1px solid #9a9a9a;
+  color: #000;
+}
+
+.btn-lcd:hover {
+  background-color: #cfcfcf;
+}
