@@ -47,33 +47,37 @@
           <!-- Formulario -->
           <section class="pantalla flex-grow-1">
             <h2>Formulario para agregar tareas:</h2>
-            <form>
+            <form id="taskForm" novalidate>
               <div class="mb-2">
-                <label for="nombre" class="form-label mb-1">Nombre de la tarea</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Ej: Estudiar HTML">
+                <label for="newTaskNameInput" class="form-label mb-1">Nombre de la tarea</label>
+                <input type="text" class="form-control" id="newTaskNameInput" placeholder="Ej: Estudiar HTML">
               </div>
 
               <div class="mb-2">
-                <label for="descripcion" class="form-label mb-1">Descripción</label>
-                <textarea class="form-control" id="descripcion" rows="2" placeholder="Describe la tarea"></textarea>
+                <label for="newTaskDescriptionInput" class="form-label mb-1">Descripción</label>
+                <textarea class="form-control" id="newTaskDescriptionInput" rows="2" placeholder="Describe la tarea"></textarea>
               </div>
 
               <div class="row g-2 mb-3">
                 <div class="col-6">
-                  <label for="fecha" class="form-label mb-1">Fecha de entrega</label>
-                  <input type="date" class="form-control" id="fecha">
+                  <label for="newTaskDateInput" class="form-label mb-1">Fecha de entrega</label>
+                  <input type="date" class="form-control" id="newTaskDateInput">
                 </div>
                 <div class="col-6">
-                  <label for="estado" class="form-label mb-1">Estado</label>
-                  <select class="form-select" id="estado">
-                    <option>Pendiente</option>
+                  <label for="newTaskStatusInput" class="form-label mb-1">Estado</label>
+                  <select class="form-select" id="newTaskStatusInput">
+                    <option value="">Selecciona un estado</option>
+                  <option>Pendiente</option>
                     <option>En progreso</option>
                     <option>Completada</option>
                   </select>
                 </div>
               </div>
 
-              <button type="button" class="btn btn-lcd w-100">+ Agregar tarea</button>
+              <!-- Alerta de error (oculta al inicio) -->
+              <div id="formAlert" class="alert alert-danger py-2 d-none" role="alert"></div>
+
+              <button type="submit" class="btn btn-lcd w-100">+ Agregar tarea</button>
             </form>
           </section>
 
@@ -183,5 +187,7 @@
     </div>
   </div>
 
+  <!-- JavaScript -->
+  <script src="js/app.js"></script>
 </body>
 </html>
