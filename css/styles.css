@@ -73,3 +73,35 @@ body {
 .btn-lcd:hover {
   background-color: #cfcfcf;
 }
+
+/* Tarea completada: borde verde, fondo verde y título tachado */
+.tarea-completada {
+  border-color: #198754;
+  background-color: rgba(25, 135, 84, 0.25);
+}
+
+.tarea-completada .card-title {
+  text-decoration: line-through;
+}
+
+/* Lista general: tareas seleccionables */
+#taskList li {
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+#taskList li:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+#taskList li.seleccionada {
+  background-color: rgba(11, 47, 107, 0.3);
+  font-weight: 600;
+}
+
+/* Lista general: tareas completadas */
+#taskList li.completada {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
