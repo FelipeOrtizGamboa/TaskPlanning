@@ -1,13 +1,30 @@
 // ==================== taskManager.js ====================
 class TaskManager {
-  constructor() {
+  constructor(currentId = 0) {
     this.tasks = [];
+    this.currentId = currentId;
+  }
+
+  // Registra una nueva tarea con un id consecutivo y estado inicial PORHACER
+  addTask(name, description, dueDate, status) {
+    this.currentId++;
+
+    const task = {
+      id: this.currentId,
+      name: name,
+      description: description,
+      dueDate: dueDate,
+      status: 'PORHACER'
+    };
+
+    this.tasks.push(task);
+    return task; // devolvemos la tarea para poder usar su id al dibujarla
   }
 }
 
 // ==================== index.js ====================
-// Prueba de la clase TaskManager (debe mostrar [] en la consola)
-const taskManager = new TaskManager();
+// Las 5 tareas de ejemplo del HTML ya usan los ids 1 a 5, por eso empezamos en 5
+const taskManager = new TaskManager(5);
 console.log(taskManager.tasks);
 
 // Seleccionamos los elementos del HTML por su id
@@ -67,7 +84,7 @@ taskForm.addEventListener('submit', function (event) {
     // Todo correcto: ocultamos la alerta
     formAlert.classList.add('d-none');
     console.log('Formulario válido');
-    addTask(data); // crea la tarjeta y la agrega a la lista
+    createTask(data); // registra en TaskManager y crea la tarjeta
   }
 });
 
@@ -137,28 +154,32 @@ btnAgregar.addEventListener('click', function () {
 
 
 // ===== Crear una tarea nueva desde el formulario =====
-let nextTaskId = 6; // las 5 tareas de ejemplo ya usan del 1 al 5
-
 // Convierte 2026-11-10 en 10/11/2026
 function formatDate(isoDate) {
   const parts = isoDate.split('-');
   return parts[2] + '/' + parts[1] + '/' + parts[0];
 }
 
-function addTask(data) {
-  const id = nextTaskId++;
+function createTask(data) {
+  // Guardamos la tarea en el TaskManager (él asigna el id)
+  const saved = taskManager.addTask(
+    data.name.trim(),
+    data.description.trim(),
+    data.date,
+    data.status
+  );
+  console.log(taskManager.tasks);
+
+  const id = saved.id;
+  // Para dibujar la tarjeta usamos el estado que eligió el usuario en el formulario
   const task = {
     id: id,
-    name: data.name.trim(),
-    description: data.description.trim(),
-    date: data.date,
+    name: saved.name,
+    description: saved.description,
+    date: saved.dueDate,
     status: data.status
   };
   const isCompleted = task.status === 'Completada';
-
-  // Guardamos la tarea en el TaskManager
-  taskManager.tasks.push(task);
-  console.log(taskManager.tasks);
 
   // Colores del badge según el estado
   const badgeClasses = {
@@ -258,6 +279,48 @@ function updateCounters() {
   document.querySelector('#contVencidas').textContent = overdue;
   document.querySelector('#contCompletadas').textContent = completed;
 }
+
+// ===== Reloj y fecha con la hora de Colombia =====
+const relojDia = document.querySelector('#relojDia');
+const relojFecha = document.querySelector('#relojFecha');
+const relojHora = document.querySelector('#relojHora');
+const relojAmPm = document.querySelector('#relojAmPm');
+
+// Colombia está en la zona "America/Bogota" (UTC-5, sin horario de verano)
+const clockFormat = new Intl.DateTimeFormat('es-CO', {
+  timeZone: 'America/Bogota',
+  weekday: 'long',
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true
+});
+
+function updateClock() {
+  const parts = clockFormat.formatToParts(new Date());
+  const get = function (type) {
+    return parts.find(function (p) { return p.type === type; }).value;
+  };
+
+  const date = get('day') + '/' + get('month') + '/' + get('year');
+  // "a. m." / "p. m." -> "A.M." / "P.M."
+  const isAm = get('dayPeriod').replace(/[\s.\u00a0\u202f]/g, '').toLowerCase() === 'am';
+
+  relojDia.textContent = get('weekday').toUpperCase();
+  relojHora.textContent = get('hour') + ':' + get('minute');
+  relojAmPm.textContent = isAm ? 'A.M.' : 'P.M.';
+
+  // Si cambió el día, actualizamos la fecha y recalculamos los contadores
+  if (relojFecha.textContent !== date) {
+    relojFecha.textContent = date;
+    updateCounters();
+  }
+}
+
+updateClock();
+setInterval(updateClock, 1000);
 
 // Calculamos los contadores al cargar la página
 updateCounters();

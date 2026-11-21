@@ -84,14 +84,14 @@
         <!-- ================= COLUMNA DERECHA ================= -->
         <div class="col-lg-6 d-flex flex-column gap-3">
 
-          <!-- Reloj (texto fijo por ahora) -->
+          <!-- Reloj (hora de Colombia, se actualiza con JavaScript) -->
           <section class="pantalla reloj">
             <div class="d-flex justify-content-between">
-              <span>MARTES</span>
+              <span id="relojDia">MARTES</span>
               <span id="relojFecha">03/11/2026</span>
             </div>
-            <div class="reloj-hora my-2">10:35</div>
-            <div>A.M.</div>
+            <div class="reloj-hora my-2" id="relojHora">10:35</div>
+            <div id="relojAmPm">A.M.</div>
           </section>
 
           <!-- Lista de tarjetas de tarea -->
@@ -108,10 +108,19 @@
 
         </div>
       </div>
+
+      <!-- Juego del dinosaurio -->
+      <section class="pantalla mt-3">
+        <h2>Juego: Dino</h2>
+        <canvas id="dinoCanvas" class="juego-canvas" width="900" height="220" tabindex="0"
+                aria-label="Juego del dinosaurio. Presiona espacio para saltar."></canvas>
+        <small class="d-block mt-2">Haz clic en el juego y usa ESPACIO o ↑ para saltar y ↓ para agacharte.</small>
+      </section>
     </div>
   </div>
 
- //conexión al JavaScript
+  <!-- Conexión al JavaScript -->
   <script src="js/app.js"></script>
+  <script src="js/dino.js"></script>
 </body>
 </html>
