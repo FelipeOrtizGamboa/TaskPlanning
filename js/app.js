@@ -355,17 +355,3 @@ setInterval(updateClock, 1000);
 // Calculamos los contadores al cargar la página
 updateCounters();
 
-// ===== Tareas de ejemplo (antes estaban escritas a mano en el HTML) =====
-// Cambia los textos y fechas a tu gusto. Las tarjetas quedan ocultas hasta que
-// seleccionas la tarea en la lista.
-const sampleTasks = [
-  { name: 'Estudiar HTML', description: 'Repasar etiquetas semánticas y formularios.', date: '2026-11-20', status: 'Completada' },
-  { name: 'Practicar Bootstrap', description: 'Maquetar una página con el sistema de grillas.', date: '2026-11-25', status: 'Pendiente' },
-  { name: 'Subir proyecto a GitHub', description: 'Hacer commit y push del Planificador de Tareas.', date: '2026-11-23', status: 'En progreso' },
-  { name: 'Ejercicio de lógica', description: 'Resolver el ejercicio de lógica de programación.', date: '2026-11-21', status: 'Pendiente' },
-  { name: 'Actualizar LinkedIn', description: 'Actualizar la portada y la experiencia del perfil.', date: '2026-11-30', status: 'Pendiente' }
-];
-
-sampleTasks.forEach(function (t) {
-  createTask(t, false);
-});
