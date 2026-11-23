@@ -125,6 +125,8 @@ El diseño de la interfaz fue planeado en Figma: [ver prototipo](https://www.fig
 
 **Un paso a la vez. Cada tarea cuenta.** ✦
 
+Link del Deploy: https://felipeortizgamboa.github.io/TaskPlanning/
+
 Hecho con ☕ y mucho `console.log()` por [Felipe Ortiz Gamboa](https://github.com/FelipeOrtizGamboa)
 
 </div>
