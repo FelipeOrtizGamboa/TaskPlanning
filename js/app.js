@@ -23,8 +23,8 @@ class TaskManager {
 }
 
 // ==================== index.js ====================
-// Las 5 tareas de ejemplo del HTML ya usan los ids 1 a 5, por eso empezamos en 5
-const taskManager = new TaskManager(5);
+// Las tareas de ejemplo se crean más abajo con createTask(), así que empezamos en 0
+const taskManager = new TaskManager();
 console.log(taskManager.tasks);
 
 // Seleccionamos los elementos del HTML por su id
@@ -84,7 +84,7 @@ taskForm.addEventListener('submit', function (event) {
     // Todo correcto: ocultamos la alerta
     formAlert.classList.add('d-none');
     console.log('Formulario válido');
-    createTask(data); // registra en TaskManager y crea la tarjeta
+    createTask(data, true); // registra en TaskManager, crea la tarjeta y la muestra
   }
 });
 
@@ -129,8 +129,27 @@ taskList.addEventListener('click', function (event) {
   const item = event.target.closest('li');
   if (item) {
     item.classList.toggle('seleccionada');
+    showSelectedCards();
   }
 });
+
+// Muestra en el panel derecho solo las tarjetas de las tareas seleccionadas
+const emptyMsg = document.querySelector('#panelVacio');
+
+function showSelectedCards() {
+  let visibles = 0;
+
+  taskCards.querySelectorAll('.col').forEach(function (col) {
+    const item = taskList.querySelector('li[data-id="' + col.dataset.id + '"]');
+    const selected = item !== null && item.classList.contains('seleccionada');
+    col.classList.toggle('d-none', !selected);
+    if (selected) {
+      visibles++;
+    }
+  });
+
+  emptyMsg.classList.toggle('d-none', visibles > 0);
+}
 
 // Botón Eliminar: borra las tareas seleccionadas (de la lista y su tarjeta)
 btnEliminar.addEventListener('click', function () {
@@ -141,9 +160,13 @@ btnEliminar.addEventListener('click', function () {
     if (card) {
       card.remove();
     }
+    taskManager.tasks = taskManager.tasks.filter(function (t) {
+      return String(t.id) !== item.dataset.id;
+    });
     item.remove();
   });
 
+  showSelectedCards();
   updateCounters();
 });
 
@@ -160,7 +183,7 @@ function formatDate(isoDate) {
   return parts[2] + '/' + parts[1] + '/' + parts[0];
 }
 
-function createTask(data) {
+function createTask(data, select) {
   // Guardamos la tarea en el TaskManager (él asigna el id)
   const saved = taskManager.addTask(
     data.name.trim(),
@@ -223,19 +246,26 @@ function createTask(data) {
   }
 
   taskCards.appendChild(col);
-  col.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   // 2) Elemento en el "Listado de tareas General"
   const item = document.createElement('li');
   item.dataset.id = id;
   item.textContent = task.name;
+  if (select) {
+    item.classList.add('seleccionada'); // la tarea nueva se abre en el panel
+  }
   taskList.appendChild(item);
 
   // 3) Limpiamos el formulario y lo ocultamos
   taskForm.reset();
   formSection.classList.add('d-none');
 
+  showSelectedCards();
   updateCounters();
+
+  if (select) {
+    col.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 }
 
 
@@ -324,3 +354,18 @@ setInterval(updateClock, 1000);
 
 // Calculamos los contadores al cargar la página
 updateCounters();
+
+// ===== Tareas de ejemplo (antes estaban escritas a mano en el HTML) =====
+// Cambia los textos y fechas a tu gusto. Las tarjetas quedan ocultas hasta que
+// seleccionas la tarea en la lista.
+const sampleTasks = [
+  { name: 'Estudiar HTML', description: 'Repasar etiquetas semánticas y formularios.', date: '2026-11-20', status: 'Completada' },
+  { name: 'Practicar Bootstrap', description: 'Maquetar una página con el sistema de grillas.', date: '2026-11-25', status: 'Pendiente' },
+  { name: 'Subir proyecto a GitHub', description: 'Hacer commit y push del Planificador de Tareas.', date: '2026-11-23', status: 'En progreso' },
+  { name: 'Ejercicio de lógica', description: 'Resolver el ejercicio de lógica de programación.', date: '2026-11-21', status: 'Pendiente' },
+  { name: 'Actualizar LinkedIn', description: 'Actualizar la portada y la experiencia del perfil.', date: '2026-11-30', status: 'Pendiente' }
+];
+
+sampleTasks.forEach(function (t) {
+  createTask(t, false);
+});

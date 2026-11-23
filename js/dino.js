@@ -308,19 +308,36 @@
     }
   }
 
-  // Los teclados solo afectan al juego cuando el canvas tiene el foco,
-  // así la barra espaciadora no interfiere con el formulario.
-  canvas.addEventListener('keydown', function (event) {
-    if (event.code === 'Space' || event.code === 'ArrowUp') {
+  // El teclado se escucha en toda la página (no solo en el canvas), así el juego
+  // arranca aunque el foco esté en otro lado (lista, botones, etc.).
+  // Si el usuario está escribiendo en un campo del formulario, se ignora.
+  function isTyping(target) {
+    return ['INPUT', 'TEXTAREA', 'SELECT'].indexOf(target.tagName) !== -1;
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (isTyping(event.target)) {
+      return;
+    }
+    const gameActive = state !== 'idle' || document.activeElement === canvas;
+
+    if (event.code === 'Space' || (event.code === 'ArrowUp' && gameActive)) {
       event.preventDefault();
+      if (event.repeat) {
+        return; // mantener la tecla presionada no debe reiniciar el juego
+      }
+      // Si un botón tenía el foco, lo soltamos para que ESPACIO no lo "clickee"
+      if (document.activeElement && document.activeElement.tagName === 'BUTTON') {
+        document.activeElement.blur();
+      }
       press();
-    } else if (event.code === 'ArrowDown') {
+    } else if (event.code === 'ArrowDown' && gameActive) {
       event.preventDefault();
       dino.ducking = true;
     }
   });
 
-  canvas.addEventListener('keyup', function (event) {
+  document.addEventListener('keyup', function (event) {
     if (event.code === 'ArrowDown') {
       dino.ducking = false;
     }

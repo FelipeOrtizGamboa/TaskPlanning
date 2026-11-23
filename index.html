@@ -29,13 +29,7 @@
           <!-- Listado general -->
           <section class="pantalla">
             <h2>Listado de tareas General:</h2>
-            <ol id="taskList" class="mb-3">
-              <li data-id="1">Estudiar HTML</li>
-              <li data-id="2">Practicar Bootstrap</li>
-              <li data-id="3">Subir proyecto a GitHub</li>
-              <li data-id="4">Ejercicio de lógica</li>
-              <li data-id="5">Actualizar LinkedIn</li>
-            </ol>
+            <ol id="taskList" class="mb-3"></ol>
             <div class="d-flex justify-content-between gap-2">
               <button type="button" id="btnAgregar" class="btn btn-lcd w-50">Agregar</button>
               <button type="button" id="btnEliminar" class="btn btn-lcd w-50">Eliminar</button>
@@ -99,6 +93,7 @@
             <h2>Tareas:</h2>
 
             <div class="zona-tarjetas">
+              <p id="panelVacio" class="mb-0">Selecciona una tarea de la lista para ver su detalle.</p>
               <div id="taskCards" class="row row-cols-1 g-3">
 
                 
@@ -114,7 +109,7 @@
         <h2>Juego: Dino</h2>
         <canvas id="dinoCanvas" class="juego-canvas" width="900" height="220" tabindex="0"
                 aria-label="Juego del dinosaurio. Presiona espacio para saltar."></canvas>
-        <small class="d-block mt-2">Haz clic en el juego y usa ESPACIO o ↑ para saltar y ↓ para agacharte.</small>
+        <small class="d-block mt-2">Presiona ESPACIO o ↑ para saltar y ↓ para agacharte (también puedes hacer clic o tocar el juego).</small>
       </section>
     </div>
   </div>

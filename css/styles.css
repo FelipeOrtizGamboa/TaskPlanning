@@ -44,6 +44,7 @@ body {
 
 /* Zona con scroll para las tarjetas */
 .zona-tarjetas {
+  min-height: 180px;   /* evita que el panel se aplaste cuando las columnas se apilan */
   max-height: 460px;
   overflow-y: auto;
   padding-right: 4px;
